@@ -71,7 +71,7 @@ func Hzgen(name string) {
 			cmd1 := exec.Command("hz", "update", "-idl", "../idl/"+file)
 			err = cmd1.Run()
 			if err != nil {
-				log.Fatalf("hz gen failed with %s\n", err)
+				log.Fatalf("hz update failed with %s\n", err)
 			}
 			Tidy()
 		}

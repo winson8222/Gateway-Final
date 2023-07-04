@@ -11,7 +11,6 @@ import (
 type Constants struct {
 	FilepathToService   string
 	ServiceName         string
-	ServiceUpstreamURL  string
 	Methods             []Method
 	IDLName             string
 	GatewayName         string
@@ -46,6 +45,7 @@ func CreateConstant(services Services) {
 
 	const (
 		ETCD_URL = "{{ .ETCD_URL }}" //connects to a single etcd instance in the cluster
+		LOAD_BALANCING = "{{ .LOAD_BALANCING_TYPE }}"
 	)`
 
 	servicetemplate :=
@@ -53,8 +53,6 @@ func CreateConstant(services Services) {
 	const (
 		FILEPATH_TO_{{ .ServiceName | ToConstant }}  = "{{ .FilepathToService }}"
 		{{ .ServiceName | ToConstant }}_NAME         = "{{ .ServiceName }}" //name registered with svc registry as rpcendpoint
-		{{ .ServiceName | ToConstant }}_UPSTREAM_URL = "{{ .ServiceUpstreamURL }}"
-		{{ .ServiceName | ToConstant }}_LOAD_BALANCING_TYPE = "{{ .Load_Balancing_Type }}"
 	)
 	`
 

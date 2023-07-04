@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"time"
 
 	"gorm.io/driver/postgres"
@@ -31,7 +32,6 @@ func (Microservice) TableName() string {
 type Version struct {
 	BaseModel
 	Vname          string       `gorm:"column:vname"`
-	Upstreamurl    string       `gorm:"column:upstreamurl"`
 	Idlfile        []byte       `gorm:"column:idlfile"`
 	Idlname        string       `gorm:"column:idlname"`
 	MicroserviceId string       `gorm:"column:microserviceId"`
@@ -83,9 +83,10 @@ func GetIDL() (GatewayInfo, []ServiceInfo) {
 	}
 
 	gatewayinfo := GatewayInfo{
-		GatewayURL:  "0.0.0.0:8888",
-		ETCD_URL:    "0.0.0.0:20000",
-		GatewayName: "example",
+		GatewayURL:          os.Args[1],
+		ETCD_URL:            "0.0.0.0:20000",
+		GatewayName:         "gateway",
+		Load_Balancing_Type: os.Args[3],
 	}
 
 	services := []ServiceInfo{}
@@ -94,9 +95,7 @@ func GetIDL() (GatewayInfo, []ServiceInfo) {
 		index := i + 1
 		fmt.Print("IDL " + fmt.Sprint(index) + ": " + service.Versions[len(service.Versions)-1].Idlname + "\n")
 		toadd := ServiceInfo{
-			IDLName:             service.Versions[len(service.Versions)-1].Idlname, //to be replaced by data from postgres
-			ServiceUpstreamURL:  service.Versions[len(service.Versions)-1].Upstreamurl,
-			Load_Balancing_Type: "ROUND_ROBIN",
+			IDLName: service.Versions[len(service.Versions)-1].Idlname, //to be replaced by data from postgres
 		}
 
 		services = append(services, toadd)

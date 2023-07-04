@@ -18,9 +18,10 @@ func MakeServices(info GatewayInfo, list []ServiceInfo) Services {
 	}
 
 	gateway := Services{
-		GATEWAY_URL:       info.GatewayURL,
-		ETCD_URL:          info.ETCD_URL,
-		Service_Constants: exampleconstants,
+		GATEWAY_URL:         info.GatewayURL,
+		ETCD_URL:            info.ETCD_URL,
+		LOAD_BALANCING_TYPE: info.Load_Balancing_Type,
+		Service_Constants:   exampleconstants,
 	}
 	fmt.Print("Gateway info configured")
 	return gateway
@@ -184,11 +185,10 @@ func MakeConstants(gateway string, info ServiceInfo) *Constants {
 	con := Constants{
 		FilepathToService:   "." + GetFilePath(info.IDLName),
 		ServiceName:         GetServiceName(info.IDLName),
-		ServiceUpstreamURL:  info.ServiceUpstreamURL,
 		Methods:             GetMethods(info.IDLName),
 		IDLName:             GetNameSpace(info.IDLName),
 		GatewayName:         gateway,
-		Load_Balancing_Type: info.Load_Balancing_Type,
+		Load_Balancing_Type: "",
 	}
 
 	return &con

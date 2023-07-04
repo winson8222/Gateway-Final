@@ -21,23 +21,23 @@ func separateCamelCase(input string) string {
 
 // Services struct contains necessary information for creating constants.go files
 type Services struct {
-	GATEWAY_URL       string
-	ETCD_URL          string
-	Service_Constants []Constants
+	GATEWAY_URL         string
+	ETCD_URL            string
+	LOAD_BALANCING_TYPE string
+	Service_Constants   []Constants
 }
 
 // Gateway struct contains necessary infromation of the gateway
 type GatewayInfo struct {
-	GatewayURL  string
-	ETCD_URL    string
-	GatewayName string
+	GatewayURL          string
+	ETCD_URL            string
+	GatewayName         string
+	Load_Balancing_Type string
 }
 
 // ServiceInfo structs contains information needed for the gateway's connection to microservices
 type ServiceInfo struct {
-	IDLName             string
-	ServiceUpstreamURL  string
-	Load_Balancing_Type string
+	IDLName string
 }
 
 func main() {
@@ -59,6 +59,7 @@ func main() {
 	for _, constant := range gatewayexample.Service_Constants {
 		Creategencli(constant)
 	}
+	CreateMain()
 
 	allhandlers := []HandlerInfo{}
 

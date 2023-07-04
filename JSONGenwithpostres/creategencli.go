@@ -21,6 +21,8 @@ import (
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/genericclient"
 	"github.com/cloudwego/kitex/pkg/generic"
+	"github.com/cloudwego/kitex/pkg/loadbalance"
+	
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	etcd "github.com/kitex-contrib/registry-etcd"
@@ -48,12 +50,20 @@ func {{ .ServiceName }}GenericClient() genericclient.Client {
 		klog.Fatalf("new JSON thrift generic failed: %v", err)
 	}
 
-	cli, err := genericclient.NewClient(constants.{{ .ServiceName | ToConstant }}_NAME, g, client.WithResolver(r)) //should use dns resolver
-
-	if err != nil {
-		klog.Fatalf("new JSON generic client failed: %v", err)
+	if (constants.LOAD_BALANCING == "ROUND_ROBIN") {
+		cli, err := genericclient.NewClient(constants.{{ .ServiceName | ToConstant }}_NAME, g, client.WithResolver(r),
+			client.WithLoadBalancer(loadbalance.NewWeightedBalancer()))
+		if err != nil {
+			klog.Fatalf("new JSON generic client failed: %v", err)
+		}
+		return cli
+	} else {
+		cli, err := genericclient.NewClient(constants.{{ .ServiceName | ToConstant }}_NAME, g, client.WithResolver(r))
+		if err != nil {
+			klog.Fatalf("new JSON generic client failed: %v", err)
+		}
+		return cli
 	}
-	return cli
 }
 
 `
