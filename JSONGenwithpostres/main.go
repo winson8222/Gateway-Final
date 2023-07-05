@@ -2,6 +2,7 @@
 package main
 
 import (
+	"create"
 	"log"
 	"os"
 	"strings"
@@ -17,14 +18,6 @@ func separateCamelCase(input string) string {
 		builder.WriteRune(unicode.ToLower(char))
 	}
 	return builder.String()
-}
-
-// Services struct contains necessary information for creating constants.go files
-type Services struct {
-	GATEWAY_URL         string
-	ETCD_URL            string
-	LOAD_BALANCING_TYPE string
-	Service_Constants   []Constants
 }
 
 // Gateway struct contains necessary infromation of the gateway
@@ -53,15 +46,15 @@ func main() {
 	Hzgen(info.GatewayName)
 
 	//create the constant folder and files
-	CreateConstant(gatewayexample)
+	create.CreateConstant(gatewayexample)
 
 	// //create gencli for all services
 	for _, constant := range gatewayexample.Service_Constants {
-		Creategencli(constant)
+		create.Creategencli(constant)
 	}
-	CreateMain()
+	create.CreateMain()
 
-	allhandlers := []HandlerInfo{}
+	allhandlers := []create.HandlerInfo{}
 
 	err := os.Chdir("../")
 	if err != nil {
@@ -75,7 +68,7 @@ func main() {
 
 	//create handler for all methods
 	for _, handler := range allhandlers {
-		Createhandler(handler)
+		create.Createhandler(handler)
 		err := os.Chdir("../")
 		if err != nil {
 			log.Fatalf("move to directory folder failed with %s\n", err)

@@ -32,7 +32,7 @@ func Hzgen(name string) {
 	//check idl files
 	IDLs, err := GetIDLs()
 	if err != nil {
-		log.Fatalf("get IDL files failed with", err)
+		log.Fatalf("get IDL files failed with %s\n", err)
 	}
 
 	//create new folder for hz
@@ -54,6 +54,8 @@ func Hzgen(name string) {
 	if err != nil {
 		log.Fatalf("move to folder failed with %s\n", err)
 	}
+
+	ClearGateway()
 
 	number := 0
 

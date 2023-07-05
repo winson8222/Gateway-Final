@@ -1,6 +1,7 @@
 package main
 
 import (
+	"create"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -8,16 +9,16 @@ import (
 )
 
 // MakeServices built information needed for creation of constants files
-func MakeServices(info GatewayInfo, list []ServiceInfo) Services {
+func MakeServices(info GatewayInfo, list []ServiceInfo) create.Services {
 
-	exampleconstants := []Constants{}
+	exampleconstants := []create.Constants{}
 
 	for _, service := range list {
 		constants := MakeConstants(info.GatewayName, service)
 		exampleconstants = append(exampleconstants, *constants)
 	}
 
-	gateway := Services{
+	gateway := create.Services{
 		GATEWAY_URL:         info.GatewayURL,
 		ETCD_URL:            info.ETCD_URL,
 		LOAD_BALANCING_TYPE: info.Load_Balancing_Type,
@@ -28,8 +29,8 @@ func MakeServices(info GatewayInfo, list []ServiceInfo) Services {
 }
 
 // MakeHandlerInfo returns information needed for create handler functions for a service in the gateway
-func MakeHandlerInfo(idl string, gatename string) HandlerInfo {
-	serviceinfo := HandlerServiceInfo{
+func MakeHandlerInfo(idl string, gatename string) create.HandlerInfo {
+	serviceinfo := create.HandlerServiceInfo{
 		IDLName:     GetNameSpace(idl),
 		GatewayName: gatename,
 		HandlerFile: separateCamelCase(GetServiceName(idl)),
@@ -37,10 +38,10 @@ func MakeHandlerInfo(idl string, gatename string) HandlerInfo {
 
 	methods := GetMethods(idl)
 
-	handlers := []Handler{}
+	handlers := []create.Handler{}
 
 	for _, method := range methods {
-		handler := Handler{
+		handler := create.Handler{
 			MethodName:    method.MethodName,
 			ServiceName:   GetServiceName(idl),
 			IDLName:       GetNameSpace(idl),
@@ -49,7 +50,7 @@ func MakeHandlerInfo(idl string, gatename string) HandlerInfo {
 		handlers = append(handlers, handler)
 	}
 
-	handlerinfo := HandlerInfo{
+	handlerinfo := create.HandlerInfo{
 		ServiceInfo: serviceinfo,
 		Handlers:    handlers,
 	}
@@ -60,8 +61,11 @@ func MakeHandlerInfo(idl string, gatename string) HandlerInfo {
 
 // Get names of all the idl files retrieved from database
 func GetIDLs() ([]string, error) {
+
 	files, err := ioutil.ReadDir("idl")
+
 	if err != nil {
+
 		log.Fatal(err)
 		return nil, err
 	}
@@ -133,7 +137,7 @@ func GetServiceName(idl string) string {
 }
 
 // Get the names of the methods of a service from IDL file
-func GetMethods(idl string) []Method {
+func GetMethods(idl string) []create.Method {
 	path := GetFilePath(idl)
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -145,11 +149,11 @@ func GetMethods(idl string) []Method {
 	methodRegex := regexp.MustCompile(`(\w+)\s+(\w+)\(.*?\)\s\(api\.(get|post)`)
 	matches := methodRegex.FindAllStringSubmatch(stringContent, -1)
 
-	methods := []Method{}
+	methods := []create.Method{}
 	for _, match := range matches {
 		methodName := match[2]
 
-		newMethod := Method{
+		newMethod := create.Method{
 			MethodName: methodName,
 		}
 
@@ -181,8 +185,8 @@ func GetNameSpace(idl string) string {
 }
 
 // Create constants object based on service information
-func MakeConstants(gateway string, info ServiceInfo) *Constants {
-	con := Constants{
+func MakeConstants(gateway string, info ServiceInfo) *create.Constants {
+	con := create.Constants{
 		FilepathToService:   "." + GetFilePath(info.IDLName),
 		ServiceName:         GetServiceName(info.IDLName),
 		Methods:             GetMethods(info.IDLName),

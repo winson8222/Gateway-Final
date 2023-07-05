@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 	"time"
 
 	"gorm.io/driver/postgres"
@@ -102,4 +104,49 @@ func GetIDL() (GatewayInfo, []ServiceInfo) {
 	}
 
 	return gatewayinfo, services
+}
+
+func ClearGateway() {
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Fatal("Failed to retrieve current working directory:", err)
+	}
+
+	err = filepath.Walk(wd, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Print("hello")
+			return err
+		}
+
+		if info.IsDir() {
+			// Delete directories
+			if path != wd {
+				err := os.RemoveAll(path)
+				if err != nil {
+					log.Println("Failed to delete directory:", path, "-", err)
+				} else {
+					log.Println("Deleted directory:", path)
+				}
+			}
+		} else {
+			// Delete files
+			filename := info.Name()
+			if !strings.HasPrefix(filename, "gateway") {
+				err := os.Remove(path)
+				if err != nil {
+					log.Println("Failed to delete file:", path, "-", err)
+				} else {
+					log.Println("Deleted file:", path)
+				}
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Deletion completed.")
 }
