@@ -3,47 +3,23 @@ package main
 
 import (
 	"create"
+	"hz_gen"
+	"idl_gen"
 	"log"
 	"os"
-	"strings"
-	"unicode"
 )
-
-func separateCamelCase(input string) string {
-	var builder strings.Builder
-	for i, char := range input {
-		if i > 0 && unicode.IsUpper(char) {
-			builder.WriteRune('_')
-		}
-		builder.WriteRune(unicode.ToLower(char))
-	}
-	return builder.String()
-}
-
-// Gateway struct contains necessary infromation of the gateway
-type GatewayInfo struct {
-	GatewayURL          string
-	ETCD_URL            string
-	GatewayName         string
-	Load_Balancing_Type string
-}
-
-// ServiceInfo structs contains information needed for the gateway's connection to microservices
-type ServiceInfo struct {
-	IDLName string
-}
 
 func main() {
 
-	info, serviceinfolist := GetIDL()
+	info, serviceinfolist := idl_gen.GetIDL()
 
-	gatewayexample := MakeServices(info, serviceinfolist)
+	gatewayexample := idl_gen.MakeServices(info, serviceinfolist)
 
 	// install hz
 	// Hzinstall()
 
 	// hz gen
-	Hzgen(info.GatewayName)
+	hz_gen.Hzgen(info.GatewayName)
 
 	//create the constant folder and files
 	create.CreateConstant(gatewayexample)
@@ -62,7 +38,7 @@ func main() {
 	}
 	//Make Handler info for all every IDLs
 	for _, idls := range serviceinfolist {
-		allhandlers = append(allhandlers, MakeHandlerInfo(idls.IDLName, info.GatewayName))
+		allhandlers = append(allhandlers, idl_gen.MakeHandlerInfo(idls.IDLName, info.GatewayName))
 
 	}
 
@@ -84,8 +60,8 @@ func main() {
 	Update()
 
 	//go mod tidy
-	Tidy()
+	hz_gen.Tidy()
 
 	//build exe
-	Build(info.GatewayName)
+	hz_gen.Build(info.GatewayName)
 }
