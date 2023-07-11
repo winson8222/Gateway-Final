@@ -9,7 +9,7 @@ package constants
 	}
 
 	const (
-		GATEWAY_URL              = "0.0.0.0:8888"
+		GATEWAY_URL              = "0.0.0.0:80"
 	)
 
 	const (

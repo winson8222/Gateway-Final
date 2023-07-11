@@ -1,7 +1,9 @@
 package create
 
 import (
+	"fmt"
 	"log"
+	"net"
 	"os"
 	"strings"
 	"text/template"
@@ -105,6 +107,69 @@ func CreateConstant(services Services) {
 	}
 
 	log.Println("Template generation completed successfully.")
+}
+
+func NginxConfig(services Services) {
+	configString := `
+events {
+	worker_connections  1024;
+}
+
+http {
+	upstream gateway {
+		server 127.0.0.1:8888;
+		server 127.0.0.1:8889;
+		server 127.0.0.1:8890;
+	}
+
+	server {
+		listen {{ .PORT }};
+{{- range .Service_Constants }}
+{{- $serviceName := .ServiceName }}
+{{- range .Methods }}
+		location /{{ $serviceName }}/{{ .MethodName }} {
+			proxy_pass http://gateway/{{ $serviceName }}/{{ .MethodName }};
+		}
+{{- end }}
+{{- end }}
+		location /ping {
+			proxy_pass http://gateway/ping;
+		}
+	}
+}
+`
+
+	// Extract the port from GATEWAY_URL
+	_, port, err := net.SplitHostPort(services.GATEWAY_URL)
+	if err != nil {
+		log.Fatal("invalid Address")
+	}
+
+	// Define the data to be passed to the template
+	data := struct {
+		PORT              string
+		Service_Constants []Constants
+	}{
+		PORT:              port,
+		Service_Constants: services.Service_Constants,
+	}
+
+	// Create a new template
+	tmpl := template.Must(template.New("nginxConfig").Parse(configString))
+
+	// Execute the template and write to the output file
+	outputFile, err := os.Create("../nginx/conf/nginx.conf")
+	if err != nil {
+		log.Fatalf("Error creating output file: %s\n", err)
+	}
+	defer outputFile.Close()
+
+	err = tmpl.Execute(outputFile, data)
+	if err != nil {
+		log.Fatalf("Error executing template: %s\n", err)
+	}
+
+	fmt.Println("NGINX configuration file generated successfully.")
 }
 
 func ToConstant(s string) string {

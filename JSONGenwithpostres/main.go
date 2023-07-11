@@ -24,6 +24,8 @@ func main() {
 	//create the constant folder and files
 	create.CreateConstant(gatewayexample)
 
+	//Setup Nignx config
+	create.NginxConfig(gatewayexample)
 	// //create gencli for all services
 	for _, constant := range gatewayexample.Service_Constants {
 		create.Creategencli(constant)
