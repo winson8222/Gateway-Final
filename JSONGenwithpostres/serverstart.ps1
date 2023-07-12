@@ -13,4 +13,4 @@ foreach ($arg in $remainingArgs) {
 }
 
 EXIT
-#powershell -ExecutionPolicy Unrestricted -File serverstart.ps1 -arg0 "0.0.0.0:8888"-arg1 "0.0.0.0:8889" -arg2 "0.0.0.0:8890"              
+#powershell -ExecutionPolicy Unrestricted -File serverstart.ps1 -arg0 "8888"-arg1 "8889" -arg2 "8890"              

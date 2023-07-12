@@ -22,7 +22,7 @@ func CreateMain() {
 		)
 		
 		func main() {
-			url := os.Args[1]
+			url := "0.0.0.0:" + os.Args[1]
 			h := server.Default(server.WithHostPorts(url))
 		
 			register(h)

@@ -12,7 +12,7 @@ import (
 
 // Gateway struct contains necessary infromation of the gateway
 type GatewayInfo struct {
-	GatewayURL          string
+	GatewayPort         string
 	ETCD_URL            string
 	GatewayName         string
 	Load_Balancing_Type string
@@ -33,13 +33,15 @@ func MakeServices(info GatewayInfo, list []ServiceInfo) create.Services {
 		exampleconstants = append(exampleconstants, *constants)
 	}
 
+	url := "0.0.0.0:" + info.GatewayPort
+
 	gateway := create.Services{
-		GATEWAY_URL:         info.GatewayURL,
+		GATEWAY_URL:         url,
 		ETCD_URL:            info.ETCD_URL,
 		LOAD_BALANCING_TYPE: info.Load_Balancing_Type,
 		Service_Constants:   exampleconstants,
 	}
-	fmt.Print("Gateway info configured")
+	fmt.Print("Gateway info configured\n")
 	return gateway
 }
 

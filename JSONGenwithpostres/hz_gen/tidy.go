@@ -23,5 +23,5 @@ func Build(name string) {
 	if err != nil {
 		log.Fatalf("making exe failed with %s\n", err)
 	}
-	fmt.Print(name + ".exe created")
+	fmt.Print(name + ".exe created\n")
 }

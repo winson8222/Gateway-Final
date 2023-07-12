@@ -10,4 +10,6 @@ use ./hz_gen
 
 use ./idl_gen
 
+use ./stop
+
 use ./gateway

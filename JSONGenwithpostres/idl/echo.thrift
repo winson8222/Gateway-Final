@@ -9,5 +9,5 @@ struct Response {
 }
 
 service Echo {
-    Response Echo(1: required Request req) (api.post="/echo");
+    Response Echo(1: required Request req) (api.post="/Echo/Echo");
 }

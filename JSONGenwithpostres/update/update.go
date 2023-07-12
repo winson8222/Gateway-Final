@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"os"
@@ -12,14 +13,20 @@ func main() {
 	if err != nil {
 		log.Fatalf("move to directory folder failed with %s\n", err)
 	}
+	// Args1: URL Args2: gateway name Arg2: LB
+	cmd := exec.Command("./gen.exe", os.Args[1], "update", os.Args[3])
 
-	cmd := exec.Command("./gen.exe", os.Args[1], os.Args[2], os.Args[3])
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
 
 	err = cmd.Run()
 	if err != nil {
+		log.Println("Standard Output:", stdout.String())
 		log.Fatalf("create new server files failed with %s\n", err)
 	}
 
+	log.Println("Standard Output:", stdout.String())
 	fmt.Print("New gateway files created\n")
 
 	urls := []string{"8888", "8889", "8890"} //old ports
@@ -36,7 +43,7 @@ func main() {
 		}
 		fmt.Printf("server %s stopped\n", index)
 
-		startcmd := exec.Command("powershell", "-ExecutionPolicy", "Unrestricted", "-File", "serverstart.ps1", urls[i])
+		startcmd := exec.Command("powershell", "-ExecutionPolicy", "Unrestricted", "-File", "serverstart.ps1", url)
 
 		startcmd.Stdout = os.Stdout
 		startcmd.Stderr = os.Stderr

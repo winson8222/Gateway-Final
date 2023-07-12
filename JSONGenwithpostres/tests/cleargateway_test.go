@@ -4,14 +4,19 @@ import (
 	"hz_gen"
 	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 	"testing"
 )
 
 func TestMyFunction(t *testing.T) {
+	err := os.Chdir("../gateway")
+	if err != nil {
+		log.Fatal("Error occur")
+	}
 	hz_gen.ClearGateway()
 
-	files, err := ioutil.ReadDir("gateway")
+	files, err := ioutil.ReadDir(".")
 	if err != nil {
 		log.Fatal("Error occur")
 	}

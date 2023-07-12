@@ -83,7 +83,7 @@ func GetIDL() (GatewayInfo, []ServiceInfo) {
 	}
 
 	gatewayinfo := GatewayInfo{
-		GatewayURL:          os.Args[1],
+		GatewayPort:         os.Args[1],
 		ETCD_URL:            "0.0.0.0:20000",
 		GatewayName:         "gateway",
 		Load_Balancing_Type: os.Args[3],

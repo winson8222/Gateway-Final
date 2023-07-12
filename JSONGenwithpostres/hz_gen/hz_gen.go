@@ -32,7 +32,7 @@ func Hzinstall() {
 }
 
 // Generate the hz based gateway under gateway folder
-func Hzgen(name string) {
+func Hzgen() {
 	//check idl files
 	IDLs, err := idl_gen.GetIDLs()
 	if err != nil {
@@ -66,7 +66,7 @@ func Hzgen(name string) {
 	for _, file := range IDLs {
 
 		if number <= 0 {
-			cmd1 := exec.Command("hz", "new", "-module", name, "-idl", "../idl/"+file)
+			cmd1 := exec.Command("hz", "new", "-module", "gateway", "-idl", "../idl/"+file)
 			err = cmd1.Run()
 			if err != nil {
 				log.Fatalf("hz gen failed with %s\n", err)
