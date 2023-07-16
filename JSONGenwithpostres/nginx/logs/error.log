@@ -74,3 +74,5 @@
 2023/07/12 18:39:00 [error] 17104#33724: CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
 2023/07/12 18:46:09 [notice] 16272#14200: signal process started
 2023/07/12 19:02:46 [notice] 29016#26312: signal process started
+2023/07/16 06:34:13 [alert] 17024#1176: worker process 19604 exited with code C0000142
+2023/07/16 06:34:13 [alert] 17024#1176: could not respawn worker

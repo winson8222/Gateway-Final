@@ -17,5 +17,8 @@ import (
 func Register(r *server.Hertz) {
 
 	root := r.Group("/", rootMw()...)
-	root.POST("/hello", append(_hellomethodMw(), hello.HelloMethod)...)
+	{
+		_helloservice := root.Group("/HelloService", _helloserviceMw()...)
+		_helloservice.POST("/HelloMethod", append(_hellomethodMw(), hello.HelloMethod)...)
+	}
 }

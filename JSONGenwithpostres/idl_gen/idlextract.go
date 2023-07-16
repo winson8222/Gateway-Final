@@ -79,10 +79,9 @@ func MakeHandlerInfo(idl string, gatename string) create.HandlerInfo {
 // Get names of all the idl files retrieved from database
 func GetIDLs() ([]string, error) {
 
-	files, err := ioutil.ReadDir("idl")
+	files, err := ioutil.ReadDir("../idl")
 
 	if err != nil {
-
 		log.Fatal(err)
 		return nil, err
 	}
@@ -163,7 +162,7 @@ func GetMethods(idl string) []create.Method {
 
 	stringContent := string(content)
 
-	methodRegex := regexp.MustCompile(`(\w+)\s+(\w+)\(.*?\)\s\(api\.(get|post)`)
+	methodRegex := regexp.MustCompile(`(\w+)\s+(\w+)\(.*?\);?`)
 	matches := methodRegex.FindAllStringSubmatch(stringContent, -1)
 
 	methods := []create.Method{}

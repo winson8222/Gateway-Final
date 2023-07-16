@@ -24,10 +24,13 @@ func main() {
 	// Hzinstall()
 
 	// hz gen
-	hz_gen.Hzgen()
 
 	//create the constant folder and files
-	create.CreateConstant(gatewayexample)
+	desiredDir := "gateway"
+	err := os.Chdir(desiredDir)
+	if err != nil {
+		log.Fatalf("move to folder failed with %s\n", err)
+	}
 
 	//Setup Nignx config
 	if os.Args[1] != "update" {
@@ -38,11 +41,13 @@ func main() {
 		create.CreateIDL(constant)
 		create.Creategencli(constant)
 	}
+	hz_gen.Hzgen()
+	create.CreateConstant(gatewayexample)
 	create.CreateMain()
 
 	allhandlers := []create.HandlerInfo{}
 
-	err := os.Chdir("../")
+	err = os.Chdir("../")
 	if err != nil {
 		log.Fatalf("move to directory folder failed with %s\n", err)
 	}

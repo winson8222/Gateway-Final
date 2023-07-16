@@ -39,26 +39,6 @@ func Hzgen() {
 		log.Fatalf("get IDL files failed with %s\n", err)
 	}
 
-	//create new folder for hz
-	err = os.MkdirAll("gateway", os.ModePerm)
-	if err != nil {
-		files, err := ioutil.ReadDir("idl")
-		if err != nil {
-			log.Fatal(err)
-		}
-		IDLs := []string{}
-		for _, file := range files {
-			IDLs = append(IDLs, file.Name())
-		}
-	}
-
-	//move to directory
-	desiredDir := "gateway"
-	err = os.Chdir(desiredDir)
-	if err != nil {
-		log.Fatalf("move to folder failed with %s\n", err)
-	}
-
 	ClearGateway()
 
 	number := 0
@@ -82,10 +62,6 @@ func Hzgen() {
 			Tidy()
 		}
 
-	}
-	err = os.Chdir("..")
-	if err != nil {
-		log.Fatalf("move to folder failed with %s\n", err)
 	}
 
 }

@@ -9,7 +9,7 @@ import (
 )
 
 func CreateIDL(constants Constants) {
-	log.Println("Opening input file...")
+	log.Printf("Opening input file...%s", constants.FilepathToService)
 	inputFile, err := os.Open(constants.FilepathToService)
 	if err != nil {
 		log.Println("Error opening input file:", err)

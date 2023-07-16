@@ -71,15 +71,8 @@ func CreateConstant(services Services) {
 	// Create a new template
 	tmpl := template.Must(template.New("constants").Funcs(template.FuncMap{"ToConstant": ToConstant}).Parse(templateString))
 
-	//move into gateway directory
-	desiredDir := "gateway"
-	err := os.Chdir(desiredDir)
-	if err != nil {
-		log.Fatalf("move to folder failed with %s\n", err)
-	}
-
 	// Create the output file
-	err = os.MkdirAll("constants", os.ModePerm)
+	err := os.MkdirAll("constants", os.ModePerm)
 	if err != nil {
 		log.Fatalf("Error creating output folder: %s\n", err)
 	}
