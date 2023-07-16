@@ -39,9 +39,11 @@ func main() {
 	// //create gencli for all services
 	for _, constant := range gatewayexample.Service_Constants {
 		create.CreateIDL(constant)
-		create.Creategencli(constant)
 	}
 	hz_gen.Hzgen()
+	for _, constant := range gatewayexample.Service_Constants {
+		create.Creategencli(constant)
+	}
 	create.CreateConstant(gatewayexample)
 	create.CreateMain()
 
