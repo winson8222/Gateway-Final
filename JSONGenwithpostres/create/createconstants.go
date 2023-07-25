@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"runtime"
 	"strings"
 	"text/template"
 )
@@ -151,15 +152,30 @@ http {
 	tmpl := template.Must(template.New("nginxConfig").Parse(configString))
 
 	// Execute the template and write to the output file
-	outputFile, err := os.Create("../nginx/conf/nginx.conf")
-	if err != nil {
-		log.Fatalf("Error creating output file: %s\n", err)
-	}
-	defer outputFile.Close()
+	if runtime.GOOS == "windows" {
+		outputFile, err := os.Create("../nginx/conf/nginx.conf")
+		if err != nil {
+			log.Fatalf("Error creating output file: %s\n", err)
+		}
+		defer outputFile.Close()
 
-	err = tmpl.Execute(outputFile, data)
-	if err != nil {
-		log.Fatalf("Error executing template: %s\n", err)
+		err = tmpl.Execute(outputFile, data)
+		if err != nil {
+			log.Fatalf("Error executing template: %s\n", err)
+		}
+	}
+
+	if runtime.GOOS == "darwin" {
+		outputFile, err := os.Create("/usr/local/etc/nginx/nginx.conf")
+		if err != nil {
+			log.Fatalf("Error creating output file: %s\n", err)
+		}
+		defer outputFile.Close()
+
+		err = tmpl.Execute(outputFile, data)
+		if err != nil {
+			log.Fatalf("Error executing template: %s\n", err)
+		}
 	}
 
 	fmt.Println("NGINX configuration file generated successfully.")

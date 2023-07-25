@@ -9,7 +9,7 @@ package constants
 	}
 
 	const (
-		GATEWAY_URL              = "0.0.0.0:80"
+		GATEWAY_URL              = "0.0.0.0:any"
 	)
 
 	const (
@@ -22,7 +22,7 @@ package constants
 	)
 	
 	const (
-		FILEPATH_TO_BIZSERVICE  = "../idl/bizrequests.thrift"
-		BIZSERVICE_NAME         = "BizService" //name registered with svc registry as rpcendpoint
+		FILEPATH_TO_ECHO  = "../idl/echo.thrift"
+		ECHO_NAME         = "Echo" //name registered with svc registry as rpcendpoint
 	)
 	

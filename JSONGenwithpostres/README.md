@@ -11,3 +11,7 @@
 - if successful last one line printed should be: go.mod file updated successfully.
 - Customisation of gateway name and url kiv
 - dont delete idl folder
+
+## For MacOS
+
+- need to run "brew install nginx"

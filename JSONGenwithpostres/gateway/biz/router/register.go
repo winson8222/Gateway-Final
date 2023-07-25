@@ -3,6 +3,7 @@
 package router
 
 import (
+	echoapi "gateway/biz/router/echoapi"
 	hello "gateway/biz/router/hello"
 	http "gateway/biz/router/http"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -12,6 +13,8 @@ import (
 func GeneratedRegister(r *server.Hertz) {
 	//INSERT_POINT: DO NOT DELETE THIS LINE!
 	hello.Register(r)
+
+	echoapi.Register(r)
 
 	http.Register(r)
 }

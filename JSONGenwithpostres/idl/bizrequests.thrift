@@ -20,5 +20,4 @@ service BizService {
     BizResponse BizMethod2(1: BizRequest req) (api.post="/BizService/BizMethod2");
 
     BizResponse BizMethod3(1: BizRequest req) (api.post="/BizService/BizMethod3");
-}
 

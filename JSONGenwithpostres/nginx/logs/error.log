@@ -77,3 +77,50 @@
 2023/07/16 06:34:13 [alert] 17024#1176: worker process 19604 exited with code C0000142
 2023/07/16 06:34:13 [alert] 17024#1176: could not respawn worker
 2023/07/16 23:23:39 [notice] 23184#28524: signal process started
+2023/07/19 23:37:13 [notice] 20776#10816: signal process started
+2023/07/20 15:53:50 [notice] 29300#33644: signal process started
+2023/07/20 15:53:59 [notice] 18312#14672: signal process started
+2023/07/20 15:53:59 [error] 18312#14672: CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2023/07/20 15:54:02 [notice] 14008#21760: signal process started
+2023/07/20 15:54:02 [error] 14008#21760: CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2023/07/20 15:54:05 [notice] 26276#30428: signal process started
+2023/07/20 15:54:05 [error] 26276#30428: CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2023/07/20 15:54:07 [notice] 17356#31644: signal process started
+2023/07/20 15:54:07 [error] 17356#31644: CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2023/07/20 15:54:10 [notice] 17960#10752: signal process started
+2023/07/20 15:54:10 [error] 17960#10752: CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2023/07/23 00:24:30 [notice] 32944#34504: signal process started
+2023/07/23 00:26:05 [notice] 12144#20836: signal process started
+2023/07/23 17:13:17 [notice] 28216#35100: signal process started
+2023/07/23 17:44:27 [error] 23400#7788: *1 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/hello" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: , request: "POST /hello HTTP/1.1", host: "0.0.0.0:80"
+2023/07/23 17:44:33 [error] 23400#7788: *1 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/hello" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: , request: "POST /hello HTTP/1.1", host: "0.0.0.0:80"
+2023/07/23 17:44:35 [error] 23400#7788: *1 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/hello" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: , request: "POST /hello HTTP/1.1", host: "0.0.0.0:80"
+2023/07/23 17:44:36 [error] 23400#7788: *1 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/hello" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: , request: "POST /hello HTTP/1.1", host: "0.0.0.0:80"
+2023/07/23 17:53:15 [error] 23400#7788: *3 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/HelloService/HelloMetho" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: , request: "POST /HelloService/HelloMetho HTTP/1.1", host: "0.0.0.0:80"
+2023/07/23 17:53:20 [error] 23400#7788: *3 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "POST /HelloService/HelloMethod HTTP/1.1", upstream: "http://127.0.0.1:8889/HelloService/HelloMethod", host: "0.0.0.0:80"
+2023/07/23 17:54:27 [error] 23400#7788: *3 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/Echo/Echo" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: , request: "POST /Echo/Echo HTTP/1.1", host: "0.0.0.0:80"
+2023/07/23 17:54:29 [error] 23400#7788: *3 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/Echo/Echo" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: , request: "POST /Echo/Echo HTTP/1.1", host: "0.0.0.0:80"
+2023/07/23 17:56:11 [notice] 24780#33032: signal process started
+2023/07/23 17:57:08 [notice] 28252#31260: signal process started
+2023/07/23 17:57:08 [error] 28252#31260: CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2023/07/23 18:03:15 [notice] 30412#31968: signal process started
+2023/07/24 23:02:09 [notice] 38228#25700: signal process started
+2023/07/24 23:39:37 [notice] 36240#26756: signal process started
+2023/07/24 23:45:42 [notice] 31288#38228: signal process started
+2023/07/24 23:48:17 [error] 35372#20536: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "POST /HelloService/HelloMethod HTTP/1.1", upstream: "http://127.0.0.1:8888/HelloService/HelloMethod", host: "0.0.0.0:80"
+2023/07/24 23:48:19 [error] 35372#20536: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "POST /HelloService/HelloMethod HTTP/1.1", upstream: "http://127.0.0.1:8889/HelloService/HelloMethod", host: "0.0.0.0:80"
+2023/07/24 23:48:21 [error] 35372#20536: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "POST /HelloService/HelloMethod HTTP/1.1", upstream: "http://127.0.0.1:8890/HelloService/HelloMethod", host: "0.0.0.0:80"
+2023/07/24 23:54:42 [error] 35372#20536: *5 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/Echo/Echo" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: , request: "GET /Echo/Echo HTTP/1.1", host: "0.0.0.0:80"
+2023/07/24 23:54:42 [notice] 20424#9704: signal process started
+2023/07/24 23:56:13 [error] 35372#20536: *7 CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/Echo/Echo" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: , request: "GET /Echo/Echo HTTP/1.1", host: "0.0.0.0:80"
+2023/07/24 23:56:13 [notice] 28300#37308: signal process started
+2023/07/24 23:58:08 [error] 29920#37380: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /HelloService/HelloMethod HTTP/1.1", upstream: "http://127.0.0.1:8888/HelloService/HelloMethod", host: "0.0.0.0:80"
+2023/07/24 23:58:10 [error] 29920#37380: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /HelloService/HelloMethod HTTP/1.1", upstream: "http://127.0.0.1:8889/HelloService/HelloMethod", host: "0.0.0.0:80"
+2023/07/24 23:58:13 [error] 29920#37380: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /HelloService/HelloMethod HTTP/1.1", upstream: "http://127.0.0.1:8890/HelloService/HelloMethod", host: "0.0.0.0:80"
+2023/07/24 23:58:13 [notice] 2512#38900: signal process started
+2023/07/24 23:58:49 [error] 28636#28924: *1 CreateFile() "c:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/html/HelloService/HellMethod" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: , request: "GET /HelloService/HellMethod HTTP/1.1", host: "0.0.0.0:80"
+2023/07/24 23:58:49 [notice] 26340#21596: signal process started
+2023/07/25 00:07:29 [error] 17504#24608: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /Echo/Echo HTTP/1.1", upstream: "http://127.0.0.1:8888/Echo/Echo", host: "0.0.0.0:80"
+2023/07/25 00:07:32 [error] 17504#24608: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /Echo/Echo HTTP/1.1", upstream: "http://127.0.0.1:8889/Echo/Echo", host: "0.0.0.0:80"
+2023/07/25 00:07:34 [error] 17504#24608: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /Echo/Echo HTTP/1.1", upstream: "http://127.0.0.1:8890/Echo/Echo", host: "0.0.0.0:80"
+2023/07/25 00:07:34 [notice] 29336#23508: signal process started
