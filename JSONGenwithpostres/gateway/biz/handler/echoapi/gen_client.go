@@ -58,7 +58,7 @@ func EchoGenericClient() genericclient.Client {
 
 func DoEcho(ctx context.Context, cli genericclient.Client, req string) (interface{}, error) {
 	fmt.Print(req)
-	resp, err := cli.GenericCall(ctx, "Echo", req)
+	resp, err := cli.GenericCall(ctx, "echo", req)
 
 	if err != nil {
 		return nil, err

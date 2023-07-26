@@ -88,6 +88,7 @@ func main() {
 
 }
 
+// Delete the temp gateway file
 func DeleteExe() {
 
 	_, err := os.Stat("gateway/gateway~")

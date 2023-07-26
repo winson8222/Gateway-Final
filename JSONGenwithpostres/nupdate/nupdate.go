@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// Runs Nginx Reload
 func NReload() {
 
 	var cmd *exec.Cmd

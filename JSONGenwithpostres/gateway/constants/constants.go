@@ -9,18 +9,13 @@ package constants
 	}
 
 	const (
-		GATEWAY_URL              = "0.0.0.0:any"
+		GATEWAY_URL              = "0.0.0.0:80"
 	)
 
 	const (
 		ETCD_URL = "0.0.0.0:20000" //connects to a single etcd instance in the cluster
 		LOAD_BALANCING = "ROUND_ROBIN"
 	)
-	const (
-		FILEPATH_TO_HELLOSERVICE  = "../idl/hello.thrift"
-		HELLOSERVICE_NAME         = "HelloService" //name registered with svc registry as rpcendpoint
-	)
-	
 	const (
 		FILEPATH_TO_ECHO  = "../idl/echo.thrift"
 		ECHO_NAME         = "Echo" //name registered with svc registry as rpcendpoint

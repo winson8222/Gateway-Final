@@ -19,6 +19,6 @@ func Register(r *server.Hertz) {
 	root := r.Group("/", rootMw()...)
 	{
 		_echo := root.Group("/Echo", _echoMw()...)
-		_echo.POST("/Echo", append(_echo0Mw(), echoapi.Echo)...)
+		_echo.POST("/echo", append(_echo0Mw(), echoapi.Echo)...)
 	}
 }

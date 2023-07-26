@@ -332,7 +332,7 @@ func (p *EchoClient) Echo(ctx context.Context, req *Request) (r *Response, err e
 	var _args EchoEchoArgs
 	_args.Req = req
 	var _result EchoEchoResult
-	if err = p.Client_().Call(ctx, "Echo", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "echo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -358,7 +358,7 @@ func (p *EchoProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
 
 func NewEchoProcessor(handler Echo) *EchoProcessor {
 	self := &EchoProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("Echo", &echoProcessorEcho{handler: handler})
+	self.AddToProcessorMap("echo", &echoProcessorEcho{handler: handler})
 	return self
 }
 func (p *EchoProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -388,7 +388,7 @@ func (p *echoProcessorEcho) Process(ctx context.Context, seqId int32, iprot, opr
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("Echo", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("echo", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -400,8 +400,8 @@ func (p *echoProcessorEcho) Process(ctx context.Context, seqId int32, iprot, opr
 	result := EchoEchoResult{}
 	var retval *Response
 	if retval, err2 = p.handler.Echo(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Echo: "+err2.Error())
-		oprot.WriteMessageBegin("Echo", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing echo: "+err2.Error())
+		oprot.WriteMessageBegin("echo", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -409,7 +409,7 @@ func (p *echoProcessorEcho) Process(ctx context.Context, seqId int32, iprot, opr
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("Echo", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("echo", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -529,7 +529,7 @@ func (p *EchoEchoArgs) ReadField1(iprot thrift.TProtocol) error {
 
 func (p *EchoEchoArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("Echo_args"); err != nil {
+	if err = oprot.WriteStructBegin("echo_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -674,7 +674,7 @@ func (p *EchoEchoResult) ReadField0(iprot thrift.TProtocol) error {
 
 func (p *EchoEchoResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("Echo_result"); err != nil {
+	if err = oprot.WriteStructBegin("echo_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {

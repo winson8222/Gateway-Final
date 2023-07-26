@@ -12,6 +12,9 @@ import (
 
 func main() {
 
+	//Clear IDL files
+	idl_gen.ClearFolder("idl")
+
 	// Download IDL files and get info
 	info, serviceinfolist := idl_gen.GetIDL()
 
@@ -19,9 +22,6 @@ func main() {
 
 	// Create Required stuct for service related info
 	gatewayexample := idl_gen.MakeServices(info, serviceinfolist)
-
-	// install hz
-	hz_gen.Hzinstall()
 
 	// hz gen
 

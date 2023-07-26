@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"time"
 
 	"gorm.io/driver/postgres"
@@ -102,4 +103,28 @@ func GetIDL() (GatewayInfo, []ServiceInfo) {
 	}
 
 	return gatewayinfo, services
+}
+
+// Clear IDL folders
+func ClearFolder(folderPath string) error {
+	// Get a list of files in the folder
+	files, err := os.ReadDir(folderPath)
+	if err != nil {
+		return err
+	}
+
+	// Loop through the files and delete them one by one
+	for _, file := range files {
+		filePath := filepath.Join(folderPath, file.Name())
+
+		// Check if the file is a regular file (not a directory)
+		if file.Type().IsRegular() {
+			err := os.Remove(filePath)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }
