@@ -1,5 +1,5 @@
 import { Container, SubContainer, SubContainer3, SubContainer2, VerticalContainer, SubContainerStyle, TitleText} from "./styles"
-import { Button, Spinner, FormControl, FormHelperText, FormLabel, Input, Select } from "@chakra-ui/react"
+import { Button, Spinner, FormControl, FormHelperText, FormLabel, Input, Select, HStack} from "@chakra-ui/react"
 import BackgroundComponent from "../Background"
 import MicrosvcDropdownComponent from "../MicrosvcDropdown"
 import axios from "axios";
@@ -314,132 +314,159 @@ export default function SelectServiceComponent(props: any) {
 
 
   
-    return (
-<>
-  <BackgroundComponent />
-  <Container style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <SubContainer>
-      <MicrosvcDropdownComponent entries={props.entries} />
-    </SubContainer>
-    <SubContainer2>
-      <FormControl>
-        <div style={{ margin: '1rem' }}>
-          <FormLabel>Gateway Port</FormLabel>
-          <Input 
-            type="number" 
-            name="url" 
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            style={{ width: '100%' }}
-            disabled={generated} 
-            pattern="\d*"
-            required
-          />
-          
-          <FormHelperText>Mandatory</FormHelperText>
-        </div>
-        <div style={{ margin: '1rem' }}>
-          <FormLabel>Load Balancing Type</FormLabel>
-          <Select 
-            name="lb" 
-            value={lb}
-            onChange={e => setLb(e.target.value)}
-            style={{ width: '100%' }}
+      return (
+        <>
+          <BackgroundComponent />
+          <Container
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
-            <option value="ROUND_ROBIN">Round Robin</option>
-          </Select>
-          <FormHelperText>Optional</FormHelperText>
-        </div>
-      </FormControl>
-    </SubContainer2>  
-    <Button
-      onClick={handleGen}
-      size="md"
-      colorScheme="blue"
-      isLoading={loading}
-      loadingText="Creating..."
-      spinner={<Spinner size="md" />}
-      disabled={loading || generated }
-      style={{
-        opacity: loading || generated ? 0.5 : 1,
-        cursor: loading || generated ? "not-allowed" : "pointer",
-      }}
-      margin="2rem"
-    >
-      {isProcessingDone ? success : (generated ? "Gateway Generated" : "Generate")}
-    </Button>
-    <Button
-      onClick={handleDel}
-      size="md"
-      colorScheme="red"
-      margin="2rem"
-      isLoading={deleting}
-      loadingText="Deleting..."
-      spinner={<Spinner size="md" />}
-      disabled={running || !generated}
-      style={{
-        opacity: stopping || starting || updating || running || !generated ? 0.5 : 1,
-        cursor: stopping || starting || updating || running || !generated ? "not-allowed" : "pointer",
-      }}
-    >Delete
-    </Button>
-    {generated && (
-                <SubContainer3>
-                <div>
-                    <TitleText margin="1rem">Control Panel</TitleText>
-                </div>
-                <Button 
-                onClick = {handleStop}
-                size="sm"
-                colorScheme="blue"
-                margin="0.5rem auto"
-                width="50%"
-                isLoading={stopping}
-                loadingText="Stopping"
-                spinner={<Spinner size="md" />}
-                disabled={starting || updating || stopping || !running}
-                style={{
-                  opacity: stopping || starting || updating || !running ? 0.5 : 1,
-                  cursor: stopping || starting || updating || !running ? "not-allowed" : "pointer",
-                }}
-                > Stop </Button>
-                <Button 
-                onClick = {handleStart}
-                size="sm"
-                colorScheme="blue"
-                margin="0.5rem auto"
-                width="50%"
-                isLoading={starting}
-                loadingText="Starting"
-                spinner={<Spinner size="md" />}
-                disabled={starting || updating || stopping || running }
-                style={{
-                  opacity: starting || stopping || updating || running ? 0.5 : 1,
-                  cursor: starting || stopping || updating || running ? "not-allowed" : "pointer",
-                }}
-                > Start </Button>
-                <Button 
-                onClick = {handleUpdate}
-                size="sm"
-                colorScheme="blue"
-                margin="0.5rem auto"
-                width="50%"
-                isLoading={updating}
-                loadingText="Updating"
-                spinner={<Spinner size="md" />}
-                disabled={starting || updating || stopping || !running}
-                style={{
-                  opacity: updating || stopping || starting || !running ? 0.5 : 1,
-                  cursor: updating || stopping || starting || !running ? "not-allowed" : "pointer",
-                }}
-                > Update </Button>
-            </SubContainer3>
-      )}
-
-
-  </Container>
-</>
-
+            <SubContainer style={{ height: "60%"}}>
+              <MicrosvcDropdownComponent entries={props.entries} />
+            </SubContainer>
+            <SubContainer2 style={{ width: "30%", height: "60%", paddingBottom : "1%"}}>
+              <FormControl>
+                <div style={{ margin: "1rem" }}>
+                  <FormLabel>Gateway Port</FormLabel>
+                  <Input
+                    type="number"
+                    name="url"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    style={{ width: "100%" }}
+                    disabled={generated}
+                    pattern="\d*"
+                    required
+                  />
     
-    )
-};
+                  <FormHelperText>Mandatory</FormHelperText>
+                </div>
+                <div style={{ margin: "1rem" }}>
+                  <FormLabel>Load Balancing Type</FormLabel>
+                  <Select
+                    name="lb"
+                    value={lb}
+                    onChange={(e) => setLb(e.target.value)}
+                    style={{ width: "100%" }}
+                  >
+                    <option value="ROUND_ROBIN">Round Robin</option>
+                  </Select>
+                  <FormHelperText>Optional</FormHelperText>
+                </div>
+              </FormControl>
+              <HStack>
+                <Button
+                  onClick={handleGen}
+                  size="md"
+                  colorScheme="blue"
+                  isLoading={loading}
+                  loadingText="Creating..."
+                  spinner={<Spinner size="md" />}
+                  disabled={loading}
+                  marginLeft="2rem"
+                >
+                  {isProcessingDone
+                    ? success
+                    : generated
+                    ? "Gateway Generated"
+                    : "Generate"}
+                </Button>
+                <Button
+                  onClick={handleDel}
+                  size="md"
+                  colorScheme="red"
+                  margin="0rem"
+                  isLoading={deleting}
+                  loadingText="Deleting..."
+                  spinner={<Spinner size="md" />}
+                  disabled={running || !generated}
+                  style={{
+                    opacity:
+                      stopping || starting || updating || running || !generated
+                        ? 0.5
+                        : 1,
+                    cursor:
+                      stopping || starting || updating || running || !generated
+                        ? "not-allowed"
+                        : "pointer",
+                  }}
+                >
+                  Delete
+                </Button>
+              </HStack>
+            </SubContainer2>
+    
+            {generated && (
+              <SubContainer3 style={{ height: "60%"}}>
+                <div>
+                  <TitleText margin="1rem">Control Panel</TitleText>
+                </div>
+                <Button
+                  onClick={handleStop}
+                  size="sm"
+                  colorScheme="blue"
+                  margin="0.5rem auto"
+                  width="50%"
+                  isLoading={stopping}
+                  loadingText="Stopping"
+                  spinner={<Spinner size="md" />}
+                  disabled={starting || updating || stopping || !running}
+                  style={{
+                    opacity: stopping || starting || updating || !running ? 0.5 : 1,
+                    cursor:
+                      stopping || starting || updating || !running
+                        ? "not-allowed"
+                        : "pointer",
+                  }}
+                >
+                  {" "}
+                  Stop{" "}
+                </Button>
+                <Button
+                  onClick={handleStart}
+                  size="sm"
+                  colorScheme="blue"
+                  margin="0.5rem auto"
+                  width="50%"
+                  isLoading={starting}
+                  loadingText="Starting"
+                  spinner={<Spinner size="md" />}
+                  disabled={starting || updating || stopping || running}
+                  style={{
+                    opacity: starting || stopping || updating || running ? 0.5 : 1,
+                    cursor:
+                      starting || stopping || updating || running
+                        ? "not-allowed"
+                        : "pointer",
+                  }}
+                >
+                  {" "}
+                  Start{" "}
+                </Button>
+                <Button
+                  onClick={handleUpdate}
+                  size="sm"
+                  colorScheme="blue"
+                  margin="0.5rem auto"
+                  width="50%"
+                  isLoading={updating}
+                  loadingText="Updating"
+                  spinner={<Spinner size="md" />}
+                  disabled={starting || updating || stopping || !running}
+                  style={{
+                    opacity: updating || stopping || starting || !running ? 0.5 : 1,
+                    cursor:
+                      updating || stopping || starting || !running
+                        ? "not-allowed"
+                        : "pointer",
+                  }}
+                >
+                  {" "}
+                  Update{" "}
+                </Button>
+              </SubContainer3>
+            )}
+          </Container>
+        </>
+    );
+  }
+ 
