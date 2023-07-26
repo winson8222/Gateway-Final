@@ -130,3 +130,4 @@
 2023/07/26 16:48:15 [error] 23752#21872: CreateFile() "C:\go\Gateway - Copy - Copy\JSONGenwithpostres\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
 2023/07/26 16:52:46 [notice] 8728#36568: signal process started
 2023/07/26 17:20:16 [notice] 9920#39076: signal process started
+2023/07/26 17:37:51 [notice] 35992#41972: signal process started
