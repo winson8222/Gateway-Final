@@ -26,10 +26,9 @@ func Createhandler(service HandlerInfo) {
 	
 	import (
 		"context"
-		"log"
-	
+		"sync"
 		"{{ .GatewayName }}/biz/model/{{ .IDLName }}"
-	
+		"github.com/cloudwego/kitex/client/genericclient"
 		"github.com/cloudwego/hertz/pkg/app"
 		"github.com/cloudwego/hertz/pkg/protocol/consts"
 	)
@@ -44,14 +43,16 @@ func Createhandler(service HandlerInfo) {
 			return
 		}
 
-		reqBody, err := c.Body()
+		cli := myGenClientPool.Get().(genericclient.Client)
+		defer myGenClientPool.Put(cli)
+		st, err := c.Body()
 		if err != nil {
-			log.Fatal(err)
+			c.String(consts.StatusBadRequest, err.Error())
+			return
 		}
-
 	
-		cli := {{ .ServiceName }}GenericClient()
-		resp, err := Do{{ title .MethodName }}(ctx, cli, string(reqBody)) // Pass the generic client and requestContext
+	
+		resp, err := Do{{ title .MethodName }}(ctx, cli, string(st)) // Pass the generic client and requestContext
 		if err != nil {
 			c.String(consts.StatusInternalServerError, "Failed to perform generic call")
 			return
@@ -59,7 +60,16 @@ func Createhandler(service HandlerInfo) {
 	
 		c.JSON(consts.StatusOK, resp)
 	}
+
 	`
+
+	genclitemplate := `	
+	var myGenClientPool = sync.Pool{
+		New: func() interface{} {
+			// Create and return a new object of the type you want to pool.
+			return {{ title .ServiceName }}GenericClient()
+		},
+	}`
 
 	//enter gateway folder
 	desiredDir := "gateway"
@@ -93,6 +103,10 @@ func Createhandler(service HandlerInfo) {
 			log.Fatalf("Error executing method template: %s\n", err)
 		}
 	}
+
+	gencliTmpl := template.Must(template.New("gencli").Funcs(funcs).Parse(genclitemplate))
+
+	gencliTmpl.Execute(outputFile, service.Handlers[0])
 
 	fmt.Print("Handler code for " + service.Handlers[len(service.Handlers)-1].ServiceName + " Generated successfully.\n")
 
