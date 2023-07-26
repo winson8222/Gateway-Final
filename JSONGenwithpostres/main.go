@@ -21,7 +21,7 @@ func main() {
 	gatewayexample := idl_gen.MakeServices(info, serviceinfolist)
 
 	// install hz
-	// Hzinstall()
+	hz_gen.Hzinstall()
 
 	// hz gen
 
@@ -35,8 +35,8 @@ func main() {
 	//Setup Nignx config
 	if os.Args[2] != "update" {
 		create.NginxConfig(gatewayexample)
+	} else {
 		nupdate.NReload()
-
 	}
 	// //create gencli for all services
 	for _, constant := range gatewayexample.Service_Constants {
