@@ -1,6 +1,7 @@
 ![Getting Started](godzilla.png)
 
-<div style="border: 1px solid black; padding: 10px;">
+<div style="border: 1px solid white; padding: 10px;">
+
 IDL_management_page contains the user interface
 
 JSONGenwithpostres contains the Code generator
