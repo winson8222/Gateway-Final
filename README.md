@@ -1,6 +1,6 @@
 ![Getting Started](godzilla.png)
 
-<div style="border: 1px solid white; padding: 10px;">
+<div style="border: 3px solid white; padding: 10px;">
 
 IDL_management_page contains the user interface
 
