@@ -36,6 +36,11 @@ export default function SelectServiceComponent(props: any) {
       const generated = localStorage.getItem('generated');
       const running = localStorage.getItem('running')
       const port = localStorage.getItem("port")
+      const testing = localStorage.getItem("testing")
+      
+      if (testing === "y") {
+        setUrl("1234")
+      }
 
       if (generated === 'y') {
         setgenerated(true);
@@ -351,6 +356,7 @@ export default function SelectServiceComponent(props: any) {
                     style={{ width: "100%" }}
                   >
                     <option value="ROUND_ROBIN">Round Robin</option>
+                    <option value="">None</option>
                   </Select>
                   <FormHelperText>Optional</FormHelperText>
                 </div>

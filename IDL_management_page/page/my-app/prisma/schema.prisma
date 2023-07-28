@@ -16,7 +16,6 @@ model Microservice {
 model Version {
   id             String        @id @default(uuid())
   vname          String
-  upstreamurl    String
   idlfile        Bytes
   idlname        String
   microserviceId String?

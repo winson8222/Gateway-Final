@@ -18,7 +18,7 @@ jest.mock('react-toastify', () => ({
 jest.mock('next/router');
 
 
-describe("CreateServiceComponent", () => {
+describe("Create Service Form submission when input is blank", () => {
   it("prevents form submission when any input is blank", async () => {
     render(<CreateServiceComponent />);
 

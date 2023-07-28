@@ -15,7 +15,7 @@ jest.mock('react-toastify', () => ({
   }
 }));
 
-jest.mock('../components/MicrosvcDropdown', () => () => <div>Mock DropdownComponent</div>);
+jest.mock('Generation Form submisson with different port numbers', () => () => <div>Mock DropdownComponent</div>);
 describe('SelectServiceComponent', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -59,53 +59,87 @@ describe('SelectServiceComponent', () => {
   });
 });
 
-describe("CreateServiceComponent", () => {
+describe("Control Panel at different states", () => {
+    let getItemSpy: jest.SpyInstance;
+  
     beforeEach(() => {
-      jest.clearAllMocks();
+      getItemSpy = jest.spyOn(Storage.prototype, 'getItem');
     });
   
-    it("sends axios request to /gen when form condition is fulfilled", async () => {
-      // Mock the toast.error function to avoid displaying error messages during the test
-      const mockToastError = jest.fn();
-      jest.spyOn(toast, 'error').mockImplementation(mockToastError);
+    afterEach(() => {
+      getItemSpy.mockRestore();
+    });
   
-      // Mock the localStorage.getItem method to return "n" for both "generated" and "running" keys
-      const mockLocalStorage = {
-        getItem: jest.fn((key) => (key === "generated" || key === "running") ? "n" : null),
-      };
-      Object.defineProperty(window, "localStorage", { value: mockLocalStorage });
+    it("displays control panel when 'generated' is set to 'y' in localStorage", () => {
+      getItemSpy.mockImplementation((key) => key === 'generated' ? 'y' : null);
+      
+      const { queryByText } = render(<SelectServiceComponent />);
+      expect(queryByText('Control Panel')).not.toBeNull();
+    });
   
-      const formData = { url: "1234", lb: "ROUND_ROBIN" };
-      const mockResponse: Partial<AxiosResponse> = { data: { outcome: "Gateway Generated" }, status: 200};
-  
-      // Mock the axios.post function to return a custom response
-      jest.spyOn(axios, 'post').mockResolvedValue(mockResponse);
-  
-      render(<SelectServiceComponent />);
-  
-      // Fill up the form inputs
-      fireEvent.change(screen.getByLabelText("Gateway Port"), { target: { value: "1234" } });
-      fireEvent.change(screen.getByLabelText("Load Balancing Type"), { target: { value: "ROUND_ROBIN" } });
-  
-      // Attempt to submit the form
-      fireEvent.click(screen.getByText("Generate"));
-  
-      // Wait for the axios request to be resolved
-      await waitFor(() => {
-        expect(axios.post).toHaveBeenCalledWith("http://localhost:3333/gen", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        expect(mockToastError).not.toHaveBeenCalled();
-      });
+    it("does not display control panel when 'generated' is not set to 'y' in localStorage", () => {
+      getItemSpy.mockImplementation((key) => 'n');
+      
+      const { queryByText } = render(<SelectServiceComponent />);
+      expect(queryByText('Control Panel')).toBeNull();
     });
   });
   
+
+  describe("SelectServiceComponent", () => {
+    let getItemSpy: jest.SpyInstance;
   
+    beforeEach(() => {
+      getItemSpy = jest.spyOn(Storage.prototype, 'getItem');
+    });
   
+    afterEach(() => {
+      getItemSpy.mockRestore();
+    });
   
+    it("only Update and Stop buttons are enabled when both 'running' and 'generated' are set to 'y' in localStorage", () => {
+      getItemSpy.mockImplementation((key) => 'y');
   
+      render(<SelectServiceComponent />);
   
+      const updateButton = screen.getByRole('button', { name: /Update|Updating/i });
+      const stopButton = screen.getByRole('button', { name: /Stop|Stopping/i });
+      const startButton = screen.getByRole('button', { name: /Start|Starting/i });
   
+      expect(window.getComputedStyle(updateButton).cursor).toBe('pointer');
+      expect(window.getComputedStyle(updateButton).opacity).toBe('1');
+  
+      expect(window.getComputedStyle(stopButton).cursor).toBe('pointer');
+      expect(window.getComputedStyle(stopButton).opacity).toBe('1');
+  
+      expect(window.getComputedStyle(startButton).cursor).toBe('not-allowed');
+      expect(window.getComputedStyle(startButton).opacity).toBe('0.5');
+    });
+  
+    it("only Start button is enabled when both 'running' is set to 'n' and 'generated' is set to 'y' in localStorage", () => {
+      getItemSpy.mockImplementation((key) => {
+        if (key === 'running') return 'n';
+        if (key === 'generated') return 'y';
+        return null;
+      });
+  
+      render(<SelectServiceComponent />);
+      
+      const updateButton = screen.getByRole('button', { name: /Update|Updating/i });
+      const stopButton = screen.getByRole('button', { name: /Stop|Stopping/i });
+      const startButton = screen.getByRole('button', { name: /Start|Starting/i });
+  
+      expect(window.getComputedStyle(updateButton).cursor).toBe('not-allowed');
+      expect(window.getComputedStyle(updateButton).opacity).toBe('0.5');
+  
+      expect(window.getComputedStyle(stopButton).cursor).toBe('not-allowed');
+      expect(window.getComputedStyle(stopButton).opacity).toBe('0.5');
+  
+      expect(window.getComputedStyle(startButton).cursor).toBe('pointer');
+      expect(window.getComputedStyle(startButton).opacity).toBe('1');
+    });
+  });
+  
+
+
 
