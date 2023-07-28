@@ -1,9 +1,9 @@
-
 events {
 	worker_connections  1024;
 }
 
 http {
+
 	upstream gateway {
 		server 127.0.0.1:8888;
 		server 127.0.0.1:8889;
@@ -12,8 +12,17 @@ http {
 
 	server {
 		listen 80;
-		location /HelloService/HelloMethod {
-			proxy_pass http://gateway/HelloService/HelloMethod;
+		location /Echo/echo {
+			proxy_pass http://gateway/Echo/echo;
+		}
+		location /BizService/BizMethod1 {
+			proxy_pass http://gateway/BizService/BizMethod1;
+		}
+		location /BizService/BizMethod2 {
+			proxy_pass http://gateway/BizService/BizMethod2;
+		}
+		location /BizService/BizMethod3 {
+			proxy_pass http://gateway/BizService/BizMethod3;
 		}
 		location /ping {
 			proxy_pass http://gateway/ping;

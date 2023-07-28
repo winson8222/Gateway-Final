@@ -12,6 +12,7 @@ import {toast} from "react-toastify"
 import { DragControls } from "framer-motion";
 
 
+
 export default function SelectServiceComponent(props: any) {
     
     const [lb, setLb] = useState("ROUND_ROBIN")
@@ -28,7 +29,7 @@ export default function SelectServiceComponent(props: any) {
     const [updating, setUpdating] = useState(false)
     const [deleting, setDeleting] = useState(false)
     console.log(starting)
-    const invalidPorts = [8888, 8889, 8890];
+    const invalidPorts = [8888, 8889, 8890, 20000];
 
 
     useEffect(() => {
@@ -258,7 +259,7 @@ export default function SelectServiceComponent(props: any) {
       if (url && lb) {
         const num = Number(url)
         if (invalidPorts.includes(num)) {
-          toast.error(`Ports 8888, 8889, 8890 is not allowed`);
+          toast.error(`Ports 8888, 8889, 8890, 20000 are not allowed`);
 
         } else if (num < 0 || num > 65536) {
           toast.error('Please enter a port number between 0 and 65536.');
@@ -308,6 +309,7 @@ export default function SelectServiceComponent(props: any) {
         }
       } else {
         setsuccess("Fields not filled")
+        toast.error("Fields not filled")
       }
         
       };

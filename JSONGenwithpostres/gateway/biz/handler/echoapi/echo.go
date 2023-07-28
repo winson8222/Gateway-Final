@@ -4,10 +4,9 @@
 	
 	import (
 		"context"
-		"log"
-	
+		"sync"
 		"gateway/biz/model/echoapi"
-	
+		"github.com/cloudwego/kitex/client/genericclient"
 		"github.com/cloudwego/hertz/pkg/app"
 		"github.com/cloudwego/hertz/pkg/protocol/consts"
 	)
@@ -20,14 +19,16 @@
 			return
 		}
 
-		reqBody, err := c.Body()
+		cli := myGenClientPool.Get().(genericclient.Client)
+		defer myGenClientPool.Put(cli)
+		st, err := c.Body()
 		if err != nil {
-			log.Fatal(err)
+			c.String(consts.StatusBadRequest, err.Error())
+			return
 		}
-
 	
-		cli := EchoGenericClient()
-		resp, err := DoEcho(ctx, cli, string(reqBody)) // Pass the generic client and requestContext
+	
+		resp, err := DoEcho(ctx, cli, string(st)) // Pass the generic client and requestContext
 		if err != nil {
 			c.String(consts.StatusInternalServerError, "Failed to perform generic call")
 			return
@@ -35,4 +36,11 @@
 	
 		c.JSON(consts.StatusOK, resp)
 	}
-	
+
+		
+	var myGenClientPool = sync.Pool{
+		New: func() interface{} {
+			// Create and return a new object of the type you want to pool.
+			return EchoGenericClient()
+		},
+	}

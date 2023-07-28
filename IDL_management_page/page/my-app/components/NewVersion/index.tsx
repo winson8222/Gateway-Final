@@ -29,6 +29,7 @@ import {
 import { Version } from "../../types/version";
 import { Entry } from "../../types/entry";
 import {toast} from "react-toastify"
+import React from 'react';
 
   
   export default function CreateVersionComponent({ id, svcname, versions }: Entry) {

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"nupdate"
 	"os"
 	"os/exec"
 	"runtime"
@@ -26,6 +27,10 @@ func main() {
 		log.Println("Standard Output:", stdout.String())
 		log.Fatalf("create new server files failed with %s\n", err)
 	}
+
+	fmt.Println(stdout.String())
+
+	fmt.Println(stderr.String())
 
 	log.Println("Standard Output:", stdout.String())
 	fmt.Print("New gateway files created\n")
@@ -71,6 +76,10 @@ func main() {
 		err = startcmd.Run()
 		if err != nil {
 			log.Fatalf("server %s start failed with %s\n", index, err)
+		}
+
+		if i == 0 {
+			nupdate.NReload()
 		}
 		fmt.Printf("server %s restarted\n", index)
 		err = os.Chdir("..")

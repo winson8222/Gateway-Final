@@ -8,6 +8,7 @@ import {
   FlexInputs,
   MyIcon,
 } from "./styles";
+import React from 'react';
 
 import BackgroundComponent from "../Background";
 import { toast } from 'react-toastify';

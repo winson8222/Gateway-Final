@@ -50,9 +50,6 @@ func CreateConstant(services Services) {
 		return strings.ToUpper(strings.ReplaceAll(s, " ", "_"))
 	}
 
-	const (
-		GATEWAY_URL              = "{{ .GATEWAY_URL }}"
-	)
 
 	const (
 		ETCD_URL = "{{ .ETCD_URL }}" //connects to a single etcd instance in the cluster

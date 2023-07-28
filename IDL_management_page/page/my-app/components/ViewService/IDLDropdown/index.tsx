@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Entry } from "../../../types/entry";
 import { Routes } from "../../../constants/Routes.enum";
 import { Version } from "../../../types/version";
+import React from 'react';
 
 //takes an entry and maps versions to it
 export default function IDLDropdownComponent({ id, svcname, versions }: Entry) {

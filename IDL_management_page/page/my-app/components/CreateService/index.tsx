@@ -27,6 +27,7 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { toast } from 'react-toastify';
 import axios from "axios";
+import React from "react"
 
 export default function CreateServiceComponent() {
   const svcNameRef = useRef<HTMLInputElement>();
@@ -34,6 +35,7 @@ export default function CreateServiceComponent() {
   const [selectedFile, setSelectedFile] = useState(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  const router = useRouter();
   const handleFileChange = (event: any) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -77,11 +79,7 @@ export default function CreateServiceComponent() {
     });
   };
 
-  const router = useRouter();
-  const handleBackClick = (e: any) => {
-    e.preventDefault();
-    router.push(Routes.HOME);
-  };
+  
 
   return (
     <>

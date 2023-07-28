@@ -1,4 +1,5 @@
 import { BoxOne, BoxThree, Container } from "./styles"
+import React from 'react';
 
 export default function BackgroundComponent() {
     return (

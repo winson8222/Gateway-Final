@@ -19,6 +19,7 @@ import { ChevronLeftIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import React from 'react';
   
   export default function ViewServiceComponent({ id, svcname, versions }: Entry) {
     const router = useRouter();

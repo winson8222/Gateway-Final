@@ -6,7 +6,6 @@ import (
 	"hz_gen"
 	"idl_gen"
 	"log"
-	"nupdate"
 	"os"
 )
 
@@ -33,11 +32,7 @@ func main() {
 	}
 
 	//Setup Nignx config
-	if os.Args[2] != "update" {
-		create.NginxConfig(gatewayexample)
-	} else {
-		nupdate.NReload()
-	}
+	create.NginxConfig(gatewayexample)
 	// //create gencli for all services
 	for _, constant := range gatewayexample.Service_Constants {
 		create.CreateIDL(constant)
