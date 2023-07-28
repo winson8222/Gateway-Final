@@ -1,10 +1,13 @@
 ![Getting Started](godzilla.png)
 
+<div style="border: 1px solid black; padding: 10px;">
 IDL_management_page contains the user interface
 
 JSONGenwithpostres contains the Code generator
 
 pages-backend-test contains the backend server for interacting with the database
+
+</div>
 
 Docker Setup guide
 
