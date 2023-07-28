@@ -1,5 +1,9 @@
+![Getting Started](godzilla.png)
+
 IDL_management_page contains the user interface
+
 JSONGenwithpostres contains the Code generator
+
 pages-backend-test contains the backend server for interacting with the database
 
 Docker Setup guide
